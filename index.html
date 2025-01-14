@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Voiceflow Chat - Direct DOM Manipulation</title>
+</head>
+<body style="margin:0; padding:1rem; height:150vh;">
+
+  <h1>Voiceflow Chat - Direct DOM Manipulation Test</h1>
+  <p>Scroll down or click the bubble to see if the window is forced to 600×600.</p>
+
+  <script type="text/javascript">
+    (function(d, t) {
+      const v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+
+      v.onload = function() {
+        // Load the Voiceflow floating chat widget
+        window.voiceflow.chat.load({
+          verify: { projectID: '6780d3868259b83ec49aa474' },  // your project ID
+          url: 'https://general-runtime.voiceflow.com',
+          versionID: 'production'
+        })
+        .then(() => {
+          // 1) OPTIONAL: Proactive messages (after load)
+          window.voiceflow.chat.proactive.clear();
+          window.voiceflow.chat.proactive.push(
+            {
+              type: 'text',
+              payload: { message: 'Hi there 👋, I\'m your job creation assistant' }
+            },
+            {
+              type: 'text',
+              payload: { message: 'Click on the chat bubble to get some help with creating your role.' }
+            }
+          );
+
+          // 2) Force the chat window to 600×600 (fallback approach)
+          setTimeout(() => {
+            // The widget needs time to inject .voiceflow-webchat__window
+            const chatWindow = document.querySelector('.voiceflow-webchat__window');
+            if (chatWindow) {
+              chatWindow.style.width = '600px';
+              chatWindow.style.height = '600px';
+            }
+          }, 1000);
+        });
+      };
+
+      // Insert the Voiceflow script into the DOM
+      v.src = "https://cdn.voiceflow.com/widget/bundle.mjs";
+      v.type = "text/javascript";
+      s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+  </script>
+
+</body>
+</html>
