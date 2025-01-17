@@ -1,0 +1,12 @@
+/* 
+  Custom styles to supplement Tailwind (if desired).
+  Keep it minimal for a clean, simple design.
+*/
+
+/* Example: Increase the default font size a bit */
+body {
+   .vfrc-chat-container {
+    width: 300px;
+   }
+  }
+  
